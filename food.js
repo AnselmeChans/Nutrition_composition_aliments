@@ -37,11 +37,15 @@ module.exports = function(directory) {
     const inFile = path.join(directory, name.replace(' ','_') + '.json')
     console.log('fromFile:',inFile)
     fs.readFile(inFile, 'utf8', (err, data) => {
-      if (err) return cb(err);
+      if (err) {
+        console.log(err);
+        return cb(err);
+      }
       try {
         const food = JSON.parse(data)
         return cb(null, food)
-      } catch (e){ // JSON.parse failed
+      }
+      catch (e){ // JSON.parse failed
         cb(new Error(inFile, ' wrong format, json parse error: ',e))
       }
     })
@@ -49,20 +53,23 @@ module.exports = function(directory) {
 
   function allFromFile(cb) {
     fs.readdir(directory, (err, files) => {
-      if (err) return cb(err)
+      if (err){
+        return cb(err)
+      }
       // On va  filtrer nos fichiers : on recupere les fichiers ".json", ensuite on remplace ".json" par "" ==> dans la variable allName on aura uniquement le nom des fichiers du repertoire.
       const allNames = files.filter(f => f.match(/.json$/)).map(f => f.replace(/\.json$/,''))
       // On va lire chaque fichier de manière asunchrone
       let foods = []; // list pour stocker tous nos objets crées après lectures de celles-ci
       allNames.forEach(f => fromFile(f, (err, res) =>{
         if (err) {
-          foods = null
-          return cb(err)
+          foods = null;
+          return cb(err);
         }
         if (foods){
           foods.push(res)
-          if (foods.length === allNames.length)
-          return cb(null,foods)
+          if (foods.length === allNames.length) {
+            return cb(null,foods)
+          }
         }
       }))
     })

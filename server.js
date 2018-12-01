@@ -11,8 +11,11 @@ const food = require('./food')(foodStorageDirectory)
 */
 
 // Template location
+let hbs = require('hbs');
+
 app.set('view engine', 'hbs');
-app.set('view', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
+console.log(path.join(__dirname, 'views'))
 // Route de correspondance lors du demande http de type GET : /
 
 
@@ -27,28 +30,30 @@ app.get('/foods/:name', (request, response) => {
     if (err) {
       return response.status(404).send(`${request.params.name} not found`);
     }
-    // Si pas d'erreur => j'envoie une view => /views/views_aliment.hbs
-    //response.send(nunum)
-    console.log(nunum);
-    response.render("viewsAliment", {obj : nunum});
+    else {
+      // Si pas d'erreur => j'envoie une view => /views/views_aliment.hbs
+      //response.send(nunum)
+      response.render("viewsAliment", {obj: nunum});
+    }
   });
 });
 
 // Route de correspondance lors du demande http de type GET : /foods/:name
-app.get('/foods', (req, res) => {
+app.get('/foods', (request, response) => {
   food.allFromFile((err, foodList) => {
 
     // cas d'erreur
     if (err) {
-      return res.status(404).send(`Not Found`);
+      return response.status(404).send(`Not Found`);
     }
-    //response.send(`err=${err} foodList = ${foodList.map(x => x.name)}`);
-    //response.send(foodList);
-    foodList.forEach(e => {console.log(e)})
-    response.render("viewsListAliments", {list: foodList.map(o => o.name)})
-
+    else {
+      //response.send(`err=${err} foodList = ${foodList.map(x => x.name)}`);
+      //response.send(foodList);
+      //foodList.forEach(e => {console.log(e)});
+      console.log(foodList)
+      response.render("viewsListAliments", {list: foodList.map(o => o.name)})
+    }
   });
 });
-
 
 app.listen(3000, () => console.log('server listens at http://localhost:3000'));
