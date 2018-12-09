@@ -1,0 +1,27 @@
+{
+  "name": "nutrition_composition_aliments",
+  "version": "1.0.1",
+  "description": "description aliment",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnselmeChans/Nutrition_composition_aliments.git"
+  },
+  "author": "Hans CERIL",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnselmeChans/Nutrition_composition_aliments/issues"
+  },
+  "homepage": "https://github.com/AnselmeChans/Nutrition_composition_aliments#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "hbs": "^4.0.1"
+  }
+}
