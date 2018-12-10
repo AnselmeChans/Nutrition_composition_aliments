@@ -1,4 +1,8 @@
 
-{{#each obj}}
-    <p> {{@key}} : {{this}} </p>
-{{/each}}
+<h1>{{obj.name}}</h1>
+
+<table>
+  {{#each obj}}
+    <tr><td>{{@key}}</td><td>{{this}}</td></tr>
+  {{/each}}
+</table>

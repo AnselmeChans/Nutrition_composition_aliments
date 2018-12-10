@@ -1,6 +1,5 @@
-Lites:
-
-
-{{#each list}}
-  <a href="/foods/{{this}}" > {{this}}</a><br>
-{{/each}}
+<ul>
+  {{#each elements}}
+    <li><a href="{{../prefix}}{{name}}">{{name}}</a></li>
+  {{/each}}
+</ul>
